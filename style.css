@@ -168,13 +168,46 @@ h6 {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-size: 1.8rem;
     font-weight: 700;
     font-family: var(--font-heading);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--gradient-1);
+    /* Using the site's primary gradient */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    box-shadow: 0 0 15px rgba(0, 242, 234, 0.4);
 }
 
 .logo span {
     color: var(--primary-color);
+    font-weight: 700;
+}
+
+.logo:hover .logo-icon {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 242, 234, 0.6);
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    /* Subtle zoom on hover */
+    text-shadow: 0 0 30px rgba(0, 242, 234, 0.2);
 }
 
 .nav-menu {
