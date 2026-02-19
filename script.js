@@ -19,12 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     menuToggle.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         menuToggle.classList.toggle('is-active');
+        document.body.classList.toggle('no-scroll');
     });
 
     // Close menu when link is clicked
     document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
         navMenu.classList.remove('active');
         menuToggle.classList.remove('is-active');
+        document.body.classList.remove('no-scroll');
     }));
 
     // Smooth Scrolling
