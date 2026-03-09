@@ -70,4 +70,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Testimonial Navigation
+    const testimonialSlider = document.querySelector('.testimonial-slider');
+    const prevButton = document.getElementById('prev-testimonial');
+    const nextButton = document.getElementById('next-testimonial');
+
+    if (testimonialSlider && prevButton && nextButton) {
+        const scrollAmount = 420; // Card width (400px) + gap (20px)
+
+        prevButton.addEventListener('click', () => {
+            testimonialSlider.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        nextButton.addEventListener('click', () => {
+            testimonialSlider.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+    }
+
 });

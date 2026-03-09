@@ -816,13 +816,53 @@ h6 {
 
 .testimonial-slider {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 30px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.testimonial-slider::-webkit-scrollbar {
-    display: none;
+.testimonial-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial-arrow {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10;
+    position: absolute;
+}
+
+.testimonial-arrow:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    transform: scale(1.1);
+}
+
+.testimonial-arrow-left {
+    left: -25px;
+}
+
+.testimonial-arrow-right {
+    right: -25px;
+}
+
+.testimonial-arrow i {
+    font-size: 1.2rem;
 }
 
 .testimonial-card {
@@ -831,8 +871,8 @@ h6 {
     border-radius: 20px;
     border: 1px solid var(--glass-border);
     transition: var(--transition);
-    flex: 1 1 300px;
-    max-width: 400px;
+    flex: 0 0 400px;
+    min-width: 400px;
 }
 
 .testimonial-card:hover {
