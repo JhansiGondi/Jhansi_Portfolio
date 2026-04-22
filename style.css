@@ -14,7 +14,11 @@
     --gradient-2: linear-gradient(to right, #00f2ea, #005f73);
     --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --transition: all 0.3s ease;
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-heavy: rgba(255, 255, 255, 0.07);
 }
 
 * {
@@ -34,6 +38,22 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Grain Effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 9999;
+    filter: contrast(150%) brightness(100%);
 }
 
 .no-scroll {
@@ -506,6 +526,13 @@ h6 {
     color: #F05032;
 }
 
+.icon-10 {
+    bottom: 10%;
+    left: 25%;
+    animation: float 9s ease-in-out infinite 1.2s;
+    color: #fff;
+}
+
 /* Database/Git */
 
 @keyframes spin {
@@ -816,13 +843,54 @@ h6 {
 
 .testimonial-slider {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 30px;
+    overflow-x: auto;
+    overflow-y: hidden; /* Prevent vertical movement */
+    scroll-behavior: smooth;
+    padding: 30px 10px; /* Increased padding for hover transforms */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.testimonial-slider::-webkit-scrollbar {
-    display: none;
+.testimonial-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial-arrow {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10;
+    position: absolute;
+}
+
+.testimonial-arrow:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    transform: scale(1.1);
+}
+
+.testimonial-arrow-left {
+    left: -25px;
+}
+
+.testimonial-arrow-right {
+    right: -25px;
+}
+
+.testimonial-arrow i {
+    font-size: 1.2rem;
 }
 
 .testimonial-card {
@@ -831,8 +899,8 @@ h6 {
     border-radius: 20px;
     border: 1px solid var(--glass-border);
     transition: var(--transition);
-    flex: 1 1 300px;
-    max-width: 400px;
+    flex: 0 0 400px;
+    min-width: 400px;
 }
 
 .testimonial-card:hover {
@@ -1482,6 +1550,13 @@ section.visible {
     animation: float 6.5s ease-in-out infinite 1.2s;
 }
 
+.icon-10 {
+    bottom: 5%;
+    right: 30%;
+    color: #fff;
+    animation: float 8s ease-in-out infinite 0.5s;
+}
+
 @keyframes spin {
     0% {
         transform: translate(-50%, -50%) rotate(0deg);
@@ -1527,3 +1602,168 @@ section.visible {
         transform: translate(-50%, -50%) scale(1.2);
     }
 }
+
+/* --- Enhanced Animations & Reveal Effects --- */
+
+/* Scroll Reveal Base */
+.reveal {
+    opacity: 0;
+    filter: blur(10px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: none !important;
+}
+
+.reveal-up { transform: translateY(50px); }
+.reveal-down { transform: translateY(-50px); }
+.reveal-left { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+.reveal-scale { transform: scale(0.9); }
+
+/* Staggered Delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* Interactive Hover Enhancements */
+.service-card, .project-card, .testimonial-card, .skill-item {
+    transition: var(--transition-slow);
+}
+
+.service-card:hover, .project-card:hover {
+    transform: translateY(-12px) scale(1.02) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary-color);
+}
+
+.skill-item:hover {
+    transform: translateY(-5px) scale(1.1);
+    background: rgba(0, 242, 234, 0.15);
+    box-shadow: 0 0 20px rgba(0, 242, 234, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    letter-spacing: 2px;
+}
+
+/* Floating Animation for Hero Content */
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.hero-content {
+    animation: heroFloat 6s ease-in-out infinite;
+}
+
+/* Magnetic Link Effect Simulation */
+.nav-link {
+    display: inline-block;
+    transition: var(--bounce) 0.4s;
+}
+
+.nav-link:hover {
+    transform: scale(1.1);
+}
+
+/* Section Title Underline Animation */
+.section-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--gradient-1);
+    transition: width 0.6s ease;
+    transform: translateX(-50%);
+}
+
+section.visible .section-title::after {
+    width: 80px;
+}
+
+/* --- Advanced Interactive Effects --- */
+
+/* Reading Progress Bar */
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    z-index: 1001;
+    background: transparent;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--gradient-1);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Custom Cursor Follower (Desktop Only) */
+@media (min-width: 1024px) {
+    .cursor-follower {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 242, 234, 0.1);
+        border: 1px solid var(--primary-color);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        transition: transform 0.15s ease-out, opacity 0.3s ease;
+        mix-blend-mode: difference;
+    }
+
+    .cursor-follower.active {
+        transform: scale(1.5);
+        background: rgba(0, 242, 234, 0.2);
+    }
+}
+
+/* Card Tilt & Glow Setup */
+.service-card, .project-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+}
+
+.service-card::before, .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transition: 0.5s;
+}
+
+.service-card:hover::before, .project-card:hover::before {
+    left: 100%;
+}
+
+/* Parallax Sphere Enhancement */
+.gradient-sphere {
+    transition: transform 0.2s ease-out;
+}
+
